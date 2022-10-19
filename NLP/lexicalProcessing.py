@@ -44,3 +44,16 @@ def preprocess(document, stem=True):
     document = " ".join(words)
     
     return document
+
+    #Step 3: apply simple vectoriser to analyse document
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer  
+def count_vectors(document, bow=True, tfidf=True):
+    if bow=True and tfidf=True:
+        pass
+    else:
+        vectorizer = TfidfVectorizer()
+        tfidf_model = vectorizer.fit_transform(document)
+        return tfidf_model
+
