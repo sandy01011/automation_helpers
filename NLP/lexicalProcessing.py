@@ -1,5 +1,8 @@
 # This file contain functions helpful to perform lexical processing on text corpous
 
+
+
+#Step 1: analyse word frequency of the document
 import seaborn as sns
 from nltk import FreqDist
 from nltk.corpus import stopwords
@@ -11,3 +14,33 @@ def plot_word_frequency(words, top_n=10):         # plot top words
     counts = [element[1] for element in word_freq.most_common(top_n)]
     plot = sns.barplot(labels, counts)
     return plot
+
+#Step 2: extract features from the document including term features along with word features
+from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+
+stemmer = PorterStemmer()
+wordnet_lemmatizer = WordNetLemmatizer()
+
+# add stemming and lemmatisation in the preprocess function
+def preprocess(document, stem=True):
+    'changes document to lower case and removes stopwords'
+
+    # change sentence to lower case
+    document = document.lower()
+
+    # tokenize into words
+    words = word_tokenize(document)
+
+    # remove stop words
+    words = [word for word in words if word not in stopwords.words("english")]
+    
+    if stem:
+        words = [stemmer.stem(word) for word in words]
+    else:
+        words = [wordnet_lemmatizer.lemmatize(word, pos='v') for word in words]
+
+    # join words to make sentence
+    document = " ".join(words)
+    
+    return document
