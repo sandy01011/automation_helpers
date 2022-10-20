@@ -1,4 +1,4 @@
-from NLP.lexicalProcessing import plot_word_frequency
+from NLP.lexicalProcessing import plot_word_frequency, preprocess
 import requests
 
 
