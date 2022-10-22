@@ -1,3 +1,4 @@
+# This test file will test all required helper functions. 
 from NLP.lexicalProcessing import plot_word_frequency, preprocess
 import requests
 
