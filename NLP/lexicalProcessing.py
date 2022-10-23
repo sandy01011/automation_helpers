@@ -1,13 +1,13 @@
 # This file contain functions helpful to perform lexical processing on text corpous
 
 
-
+# Scope A: Perform Lexical Text Processing EDA
 #Step 1: analyse word frequency of the document
 import seaborn as sns
 from nltk import FreqDist
 from nltk.corpus import stopwords
 
-
+# plot word frequency 
 def plot_word_frequency(words, top_n=10):         # plot top words 
     word_freq = FreqDist(words)
     labels = [element[0] for element in word_freq.most_common(top_n)]
@@ -22,7 +22,7 @@ from nltk.stem import WordNetLemmatizer
 stemmer = PorterStemmer()
 wordnet_lemmatizer = WordNetLemmatizer()
 
-# add stemming and lemmatisation in the preprocess function
+# Preprocess document and convert it to its stem or lemma
 def preprocess(document, stem=True):
     'changes document to lower case and removes stopwords'
 
@@ -44,6 +44,8 @@ def preprocess(document, stem=True):
     document = " ".join(words)
     
     return document
+
+    # spell check 
 
     #Step 3: apply simple vectoriser to analyse document
 from nltk.tokenize import word_tokenize
