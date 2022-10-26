@@ -51,7 +51,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer  
 def count_vectors(document, bow=True, tfidf=True):
-    if bow=True and tfidf=True:
+    if bow ==True and tfidf==True:
         pass
     else:
         vectorizer = TfidfVectorizer()
