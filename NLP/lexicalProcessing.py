@@ -1,21 +1,27 @@
 # This file contain functions helpful to perform lexical processing on text corpous
 
 
-# Scope A: Perform Lexical Text Processing EDA
-#Step 1: analyse word frequency of the document
+# Scope A: Perform Lexical Text Processing and EDA
+
+#Step 1: EDA: analyse word frequency of the document
 import seaborn as sns
 from nltk import FreqDist
 from nltk.corpus import stopwords
 
-# plot word frequency 
-def plot_word_frequency(words, top_n=10):         # plot top words 
+# plot word frequency with or without stop words
+def plot_word_frequency(words, top_n=10, stop_words=True):         # plot top words
+    # remove stop words
+    if stop_words:
+        pass
+    else:
+        words = [word for word in words if word not in stopwords.words("english")] 
     word_freq = FreqDist(words)
     labels = [element[0] for element in word_freq.most_common(top_n)]
     counts = [element[1] for element in word_freq.most_common(top_n)]
     plot = sns.barplot(labels, counts)
     return plot
 
-#Step 2: extract features from the document including term features along with word features
+#Step 2: Feature Extracton: extract features from the document including term features along with word features
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 
@@ -50,9 +56,14 @@ def preprocess(document, stem=True):
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer  
+from sklearn.feature_extraction.text import CountVectorizer
 def count_vectors(document, bow=True, tfidf=True):
     if bow ==True and tfidf==True:
-        pass
+        vectorizer = CountVectorizer()
+        bow_model = vectorizer.fit_transform(document)
+        vectorizer = TfidfVectorizer()
+        tfidf_model = vectorizer.fit_transform(document)
+        return (bow_model, tfidf_model)
     else:
         vectorizer = TfidfVectorizer()
         tfidf_model = vectorizer.fit_transform(document)
